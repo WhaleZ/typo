@@ -34,10 +34,9 @@ describe Admin::CategoriesController do
     end
   end
   
-  
-    describe "test_create" do
+  describe "test_create" do
     before(:each) do
-      get :edit, :id => Factory(:category).id
+      get :edit
     end
 
     it 'should render template new' do
@@ -46,14 +45,13 @@ describe Admin::CategoriesController do
         :attributes => { :id => "category_container" }
     end
 
-    it 'should create a new category' do
-      post :edit, :category => {:name => "place", :keywords => "123", :permalink => "zxc", :description => "test"}
+    it 'should create a category' do
+      post :edit, :category => {:name => "Foobar", :keywords => "Lorem Ipsum", :permalink => "GG", :description => "haha"} 
       assert_response :redirect, :action => "index"
-      assigns(:categories).should_not be_nil
+      expect(assigns(:category)).not_to be_nil
       expect(flash[:notice]).to eq("Category was successfully saved.")
     end
   end
-  
 
   it "test_update" do
     post :edit, :id => Factory(:category).id
